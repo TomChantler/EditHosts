@@ -19,10 +19,10 @@ ForEach ($server in $ServerList){
         $destination = @{Object = $path; ForegroundColor = 'Yellow';}
         $canGetHostsFileResult = $path | Start-Job { Get-Item } | Wait-Job -Timeout $TimeOut
         If ($canGetHostsFileResult) {
-			# Make a backup of the remote hosts file
-			Copy-Item $path -Destination $remoteEtcDirectory\hosts.bak
+            # Make a backup of the remote hosts file
+            Copy-Item $path -Destination $remoteEtcDirectory\hosts.bak
             # Write the local host file to the remote server
-			$newHostsFileContent | Out-File $path #Note that Out-File respects the -WhatIf parameter.
+            $newHostsFileContent | Out-File $path #Note that Out-File respects the -WhatIf parameter.
             Write-Host "New hosts file written to " -NoNewLine 
             Write-Host @destination
         } 
